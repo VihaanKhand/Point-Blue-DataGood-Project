@@ -32,7 +32,7 @@ def download_images():
         'croz_spsk_2023-12-19_lcc169_98_{}.jpg'
     ]
     
-    for i in range(1, 1000):  # Adjust the upper limit if needed
+    for i in range(1, 1000):  
         for pattern in filename_patterns:
             filename = pattern.format(i)
             image_url = os.path.join(base_url, filename)
