@@ -6,6 +6,8 @@ import cv2
 # Load a pre-trained model
 model = YOLO("yolov8n.pt")  # 'yolov8n.pt' is a pre-trained YOLOv8 nano model
 
+model.train(data='/path/to/data.yaml', epochs=100, imgsz=640)
+
 # Define input and output folders
 image_folder = "SkuaDroneImages/"
 output_folder = os.path.expanduser("~/data_output/")
