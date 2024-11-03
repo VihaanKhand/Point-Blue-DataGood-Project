@@ -27,9 +27,9 @@ def download_images():
     print("Starting the download process...")
     # LIST OF PATTERNS---this script will only grab images that lead with the 99, 9, 98 formats. Change the patterns accordingly.
     filename_patterns = [
-        'croz_spsk_2023-12-19_lcc169_99_{}.jpg',
-        'croz_spsk_2023-12-19_lcc169_9_{}.jpg',
-        'croz_spsk_2023-12-19_lcc169_98_{}.jpg'
+        'croz_spsk_2023-12-19_lcc169_13_{}.jpg',
+        'croz_spsk_2023-12-19_lcc169_139_{}.jpg',
+        'croz_spsk_2023-12-19_lcc169_169_{}.jpg'
     ]
     
     for i in range(1, 1000):  
