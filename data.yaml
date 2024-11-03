@@ -1,0 +1,5 @@
+train: path/to/train/images
+val: path/to/val/images
+
+nc: 1  # Number of classes (skua bird is one class)
+names: ['skua']
