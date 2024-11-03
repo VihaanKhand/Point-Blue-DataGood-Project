@@ -4,9 +4,9 @@ import os
 import cv2
 
 # Load a pre-trained model
-model = YOLO("yolov8n.pt")  # 'yolov8n.pt' is a pre-trained YOLOv8 nano model
+model = YOLO('yolov8n.pt')  # 'yolov8n.pt' is a pre-trained YOLOv8 nano model
 
-model.train(data='/path/to/data.yaml', epochs=100, imgsz=640)
+model.train(data='/path/to/Point-Blue-DataGood-Project/data.yaml', epochs=100, imgsz=640)
 
 # Define input and output folders
 image_folder = "SkuaDroneImages/"
@@ -19,7 +19,7 @@ print("Image paths:", image_paths)  # Check if images are found
 
 # Run inference on each image and save results
 for image_path in image_paths:
-    results = model(image_path)  # Run detection on the image
+    results = model.predict(image_path)  # Run detection on the image
 
     for result in results:
         # Get image with bounding boxes drawn
