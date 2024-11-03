@@ -1,4 +1,4 @@
 train: PointBlue/Point-Blue-DataGood-Project/Labelled Images
-
+val: /path/to/Point-Blue-DataGood-Project/Labelled Images
 nc: 1  # Number of classes (skua bird is one class)
 names: ['skua']
