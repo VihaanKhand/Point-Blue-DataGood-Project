@@ -1,32 +1,36 @@
 from ultralytics import YOLO
 import glob
-# Load a model
-model = YOLO("yolo11n.pt")
+import os
+import cv2
 
-# Train the model
-train_results = model.train(
-    data="coco8.yaml",  # path to dataset YAML
-    epochs=50,  # number of training epochs
-    imgsz=640,  # training image size
-    device="cpu",  # device to run on, i.e. device=0 or device=0,1,2,3 or device=cpu
-)
+# Load a pre-trained model
+model = YOLO("yolov8n.pt")  # 'yolov8n.pt' is a pre-trained YOLOv8 nano model
 
-image_folder = "/Users/vihaankhandelwal/Point-Blue-DataGood-Project/SkuaDroneImages/"
+# Define input and output folders
+image_folder = "SkuaDroneImages/"
+output_folder = os.path.expanduser("~/data_output/")
+os.makedirs(output_folder, exist_ok=True)
 
 # Get all images in the folder (assuming .jpg format; adjust as needed)
 image_paths = glob.glob(image_folder + "*.jpg")
+print("Image paths:", image_paths)  # Check if images are found
 
-# Run the model on each image and display results
+# Run inference on each image and save results
 for image_path in image_paths:
     results = model(image_path)  # Run detection on the image
-    results[0].show()  # Display the image with bounding boxes
 
-# Evaluate model performance on the validation set
+    for result in results:
+        # Get image with bounding boxes drawn
+        annotated_image = result.plot()
+        if annotated_image is not None:
+            output_path = os.path.join(output_folder, os.path.basename(image_path))
+            cv2.imwrite(output_path, annotated_image)
+            print(f"Saved annotated image to {output_path}")
+        else:
+            print(f"No annotated image for {image_path}")
+
+# Evaluate model performance on the validation set (optional)
 metrics = model.val()
 
-for image_path in image_paths:
-    results = model(image_path)  # Run detection on the image
-    results[0].save(save_dir="/Users/vihaankhandelwal/data_output")  # Display the image with bounding boxes
-
-# Export the model to ONNX format
-path = model.export(format="onnx")  # return path to exported model
+# Optionally, export the model to ONNX format
+path = model.export(format="onnx")  # returns path to exported model
