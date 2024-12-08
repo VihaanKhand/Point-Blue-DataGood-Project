@@ -1,0 +1,4 @@
+train: /Labelled Images
+val: /Labelled Images
+nc: 1  # Number of classes (skua bird is one class)
+names: ['skua']
