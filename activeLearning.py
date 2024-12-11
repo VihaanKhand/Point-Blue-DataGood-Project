@@ -27,7 +27,7 @@ def process_images_in_batches(image_paths, batch_size=10):
     return results
 
 # Load your trained model
-model = YOLO("runs/detect/train10/weights/best.pt")
+model = YOLO("runs/detect/train12/weights/best.pt")
 
 # Path to your larger dataset of unlabeled images
 unlabeled_image_folder = "SkuaDroneImages"
