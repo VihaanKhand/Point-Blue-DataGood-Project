@@ -4,14 +4,14 @@ import time
 from PIL import Image
 
 # Function to process images in batches
-def process_images_in_batches(image_paths, batch_size=10):
+def process_images_in_batches(image_paths, batch_size=20):
     results = []
     for i in range(0, len(image_paths), batch_size):
         batch = image_paths[i:i + batch_size]
         print(f"Processing batch {i // batch_size + 1} of {len(image_paths) // batch_size + 1}")
         
         # Run prediction on the current batch without saving automatically
-        batch_results = model.predict(source=batch, save=False, save_txt=True, save_conf=True, save_crop=True)
+        batch_results = model.predict(source=batch, save=False, save_txt=True, save_conf=False, save_crop=True,iou=0.5, conf=0.6)
         
         # Check if there are any detections (bounding boxes) and save the image if detections exist
         for result in batch_results:
@@ -30,7 +30,7 @@ def process_images_in_batches(image_paths, batch_size=10):
 model = YOLO("runs/detect/train12/weights/best.pt")
 
 # Path to your larger dataset of unlabeled images
-unlabeled_image_folder = "SkuaDroneImages"
+unlabeled_image_folder = "sampledImages"
 all_images = [os.path.join(unlabeled_image_folder, f) for f in os.listdir(unlabeled_image_folder) if f.endswith(('.jpg', '.jpeg', '.png'))]
 
 # Directory to save the predictions

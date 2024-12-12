@@ -1,4 +1,4 @@
-train: /Users/sushrut.g12/Desktop/PointBlue/Point-Blue-DataGood-Project/Labelled Images
-val: /Users/sushrut.g12/Desktop/PointBlue/Point-Blue-DataGood-Project/Labelled Images
+train: /Users/sushrut.g12/Desktop/PointBlue/Point-Blue-DataGood-Project/Labelled Images/train
+val: /Users/sushrut.g12/Desktop/PointBlue/Point-Blue-DataGood-Project/Labelled Images/val
 nc: 1  # Number of classes (skua bird is one class)
 names: ['skua']
