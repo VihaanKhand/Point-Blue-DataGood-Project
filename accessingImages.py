@@ -2,6 +2,7 @@ import boto3
 from botocore import UNSIGNED
 from botocore.client import Config
 import os
+import random
 
 # Create an S3 client without authentication (anonymous access)
 s3 = boto3.client('s3', config=Config(signature_version=UNSIGNED))
@@ -9,7 +10,6 @@ s3 = boto3.client('s3', config=Config(signature_version=UNSIGNED))
 # Define your bucket and folder prefix
 bucket_name = 'deju-penguinscience'
 prefix = 'UAVCensusMultiSpecies/croz_spsk_2023-12-19/tiles/'
-
 
 # Initialize variables for pagination
 continuation_token = None
@@ -39,10 +39,18 @@ while True:
 # Now all_objects contains all of the listed objects
 print(f"Total objects retrieved: {len(all_objects)}")
 
-download_folder = '/Users/sushrut.g12/Desktop/PointBlue/Point-Blue-DataGood-Project/SkuaDroneImages'
-# Example: Download the images
-for obj in all_objects:
+# Sample 5000 random objects
+sampled_objects = random.sample(all_objects, min(5000, len(all_objects)))
+
+# Directory to save sampled images
+download_folder = '/Users/sushrut.g12/Desktop/PointBlue/Point-Blue-DataGood-Project/sampledImages'
+os.makedirs(download_folder, exist_ok=True)
+
+# Download the sampled images
+for obj in sampled_objects:
     file_name = obj['Key'].split('/')[-1]  # Extract the file name
     print(f"Downloading {file_name}...")
     download_path = os.path.join(download_folder, file_name)
     s3.download_file(bucket_name, obj['Key'], download_path)
+
+print("Downloaded 5000 random images to the directory.")

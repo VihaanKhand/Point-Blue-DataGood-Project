@@ -1,23 +1,36 @@
 from ultralytics import YOLO
 import os
 import random
-model = YOLO("runs/detect/train11/weights/best.pt")
-model.train(data='data.yaml', epochs=30, imgsz=640, batch=16)
-# output_directory = "/Users/sushrut.g12/Desktop/Point-Blue-DataGood-Project/InitialPredictions"
-# image_folder = "/Users/sushrut.g12/Desktop/PointBlue/Point-Blue-DataGood-Project/SkuaDroneImages"
-# all_images = [os.path.join(image_folder, f) for f in os.listdir(image_folder) if f.endswith(('.jpg', '.jpeg', '.png'))]
-# print(len(all_images))
-# selected_images = random.sample(all_images, 700)
 
 
-# results = model.val(data="data.yaml", batch=16,  imgsz=640, save=True) 
+# Load the model
+model = YOLO("runs/detect/train2/weights/best.pt")
+
+# Train with optimized parameters
+# model.train(
+#     data='data.yaml',
+#     epochs=40,              # Adjust based on validation performance
+#     imgsz=640,               # Image size
+#     batch=16,                # Experiment with this value
+#     lr0=0.001,               # Initial learning rate
+#     lrf=0.01,                # Final learning rate (optional)
+#     momentum=0.937,          # Momentum for SGD
+#     weight_decay=0.0005,     # Regularization term
+#     save_period=10           # Save checkpoint every 10 epochs
+# )
+
+
+
+
+
+results = model.val(data="data.yaml", batch=16,  imgsz=640, save=True) 
         
-# # Extract metrics using the correct methods
-# precision = results.box.p       # Mean precision
-# recall = results.box.r          # Mean recall
-# map50 = results.box.map50        # Mean AP at IoU=0.5
-# #map50_95 = results.box.map()       # Mean AP at IoU=0.5:0.95
+# Extract metrics using the correct methods
+precision = results.box.p       # Mean precision
+recall = results.box.r          # Mean recall
+map50 = results.box.map50        # Mean AP at IoU=0.5
+#map50_95 = results.box.map()       # Mean AP at IoU=0.5:0.95
 
-# print("Precision", precision)
-# print("Recall", recall)
-# print("MAP", map50)
+print("Precision", precision)
+print("Recall", recall)
+print("MAP", map50)
