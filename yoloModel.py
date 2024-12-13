@@ -4,7 +4,7 @@ import random
 
 
 # Load the model
-model = YOLO("runs/detect/train2/weights/best.pt")
+model = YOLO("runs/detect/train3/weights/best.pt")
 
 # Train with optimized parameters
 # model.train(
@@ -19,18 +19,17 @@ model = YOLO("runs/detect/train2/weights/best.pt")
 #     save_period=10           # Save checkpoint every 10 epochs
 # )
 
-
-
-
-
-results = model.val(data="data.yaml", batch=16,  imgsz=640, save=True) 
-        
-# Extract metrics using the correct methods
-precision = results.box.p       # Mean precision
-recall = results.box.r          # Mean recall
-map50 = results.box.map50        # Mean AP at IoU=0.5
-#map50_95 = results.box.map()       # Mean AP at IoU=0.5:0.95
-
-print("Precision", precision)
-print("Recall", recall)
-print("MAP", map50)
+# Train with optimized parameters
+model.train(
+    data='data.yaml',            # Dataset configuration
+    epochs=45,                  # Train for 100 epochs
+    imgsz=640,                   # Image size
+    batch=16,                    # Batch size (increase if GPU allows)
+    lr0=0.001,                   # Initial learning rate
+    lrf=0.01,                    # Final learning rate
+    momentum=0.937,              # Momentum
+    weight_decay=0.0005,         # Regularization
+    conf=0.7,                   # Confidence threshold
+    iou=0.5,                     # IoU threshold for NMS
+    save_period=10,              # Save checkpoints every 10 epochs
+)
